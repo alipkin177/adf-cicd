@@ -1,0 +1,9 @@
+{
+	"name": "ADF-alipkin",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "be180df4-633b-43f5-b6f7-5348e2f8bf4e",
+		"tenantId": "177d2a5e-0566-49c7-aa6d-6d1e39878f19"
+	}
+}

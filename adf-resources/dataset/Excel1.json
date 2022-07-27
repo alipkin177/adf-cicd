@@ -1,0 +1,43 @@
+{
+	"name": "Excel1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "bike reviews1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "bike reviews4.xlsx",
+				"container": "wth"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Model",
+				"type": "String"
+			},
+			{
+				"name": "Stars",
+				"type": "String"
+			},
+			{
+				"name": "Price",
+				"type": "String"
+			},
+			{
+				"name": "Quantity",
+				"type": "String"
+			},
+			{
+				"name": "Year",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

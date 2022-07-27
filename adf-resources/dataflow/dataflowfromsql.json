@@ -1,0 +1,76 @@
+{
+	"name": "dataflowfromsql",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "window1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Model as string,",
+				"          Stars as double,",
+				"          Price as double,",
+				"          Quantity as integer,",
+				"          Year as integer,",
+				"          Value as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 filter(Year>2018) ~> filter1",
+				"filter1 derive({weighed } = Price/Stars) ~> derivedColumn1",
+				"derivedColumn1 window(over(Year),",
+				"     asc(Stars, true),",
+				"     AvgStar = sum(Stars)) ~> window1",
+				"window1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Model,",
+				"          Stars,",
+				"          Price,",
+				"          Quantity,",
+				"          Year,",
+				"          Value,",
+				"          {weighed },",
+				"          AvgStar",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
