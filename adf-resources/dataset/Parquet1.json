@@ -1,0 +1,21 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "test-pipeline",
+				"folderPath": "test1",
+				"container": "4pipe"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
